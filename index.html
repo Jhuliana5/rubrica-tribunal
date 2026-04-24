@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rúbrica de Tribunal Examinador Externo — CIBC</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f5f0; color: #1a1a1a; min-height: 100vh; padding: 2rem 1rem; }
+    .container { max-width: 700px; margin: 0 auto; }
+    .header { background: #fff; border-radius: 12px; border: 1px solid #e0ddd5; padding: 1.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 16px; }
+    .logo-circle { width: 48px; height: 48px; border-radius: 50%; background: #1a3a5c; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700; text-align: center; line-height: 1.2; flex-shrink: 0; }
+    .header-text h1 { font-size: 15px; font-weight: 600; color: #1a1a1a; margin-bottom: 3px; }
+    .header-text p { font-size: 12px; color: #666; }
+    .section-label { font-size: 12px; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; margin-top: 1.5rem; }
+    .fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
+    .field-group { display: flex; flex-direction: column; gap: 5px; }
+    .field-group label { font-size: 12px; color: #555; font-weight: 500; }
+    .field-group input[type="text"] { padding: 8px 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; color: #1a1a1a; background: #fff; outline: none; width: 100%; }
+    .field-group input[type="text"]:focus { border-color: #1a3a5c; }
+    .criteria-card { background: #fff; border: 1px solid #e0ddd5; border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 12px; }
+    .criteria-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+    .criteria-name { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 3px; }
+    .criteria-desc { font-size: 12px; color: #666; line-height: 1.5; }
+    .peso-badge { font-size: 11px; background: #f0ede5; border-radius: 6px; padding: 3px 8px; color: #555; white-space: nowrap; flex-shrink: 0; margin-left: 8px; font-weight: 500; }
+    .score-row { display: flex; align-items: center; gap: 14px; }
+    .score-row input[type="range"] { flex: 1; accent-color: #1a3a5c; cursor: pointer; }
+    .score-right { text-align: right; min-width: 90px; }
+    .score-display { font-size: 22px; font-weight: 600; color: #1a1a1a; }
+    .score-ponderado { font-size: 11px; color: #888; margin-top: 2px; }
+    .nivel-badge { font-size: 11px; padding: 3px 8px; border-radius: 6px; font-weight: 600; display: inline-block; margin-top: 4px; }
+    .nivel-exc { background: #e8f5e1; color: #2e6b0e; }
+    .nivel-sob { background: #e3eefa; color: #1a4d8c; }
+    .nivel-bue { background: #fef3e0; color: #7a4e00; }
+    .nivel-ins { background: #fde8e8; color: #8c1f1f; }
+    .total-card { background: #1a3a5c; border-radius: 12px; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; }
+    .total-label { font-size: 14px; color: rgba(255,255,255,0.75); }
+    .total-score { font-size: 42px; font-weight: 700; color: #fff; }
+    .total-max { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+    .formula-hint { font-size: 11px; color: #888; margin-top: 8px; text-align: center; }
+    .detalle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 1rem; }
+    .nota-item { display: flex; justify-content: space-between; font-size: 12px; padding: 6px 10px; background: #fff; border: 1px solid #e0ddd5; border-radius: 8px; color: #666; }
+    .nota-item span:last-child { font-weight: 600; color: #1a1a1a; }
+    .upload-zone { border: 1.5px dashed #bbb; border-radius: 12px; padding: 2rem; text-align: center; cursor: pointer; background: #fff; transition: background 0.15s; margin-top: 0.5rem; }
+    .upload-zone:hover { background: #f5f5f0; }
+    .upload-zone input { display: none; }
+    .upload-label { font-size: 13px; color: #555; margin-top: 6px; }
+    .upload-label strong { color: #1a3a5c; }
+    .img-count { font-size: 11px; color: #888; margin-top: 8px; }
+    .img-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 12px; }
+    .img-thumb { position: relative; border-radius: 8px; overflow: hidden; border: 1px solid #e0ddd5; aspect-ratio: 1; }
+    .img-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .img-remove { position: absolute; top: 5px; right: 5px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 50%; width: 22px; height: 22px; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .img-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.5); padding: 4px 7px; }
+    .img-caption input { background: transparent; border: none; color: #fff; font-size: 11px; width: 100%; outline: none; }
+    .img-caption input::placeholder { color: rgba(255,255,255,0.6); }
+    .send-btn { width: 100%; margin-top: 1.5rem; padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; border-radius: 10px; background: #1a3a5c; border: none; color: #fff; transition: background 0.15s; }
+    .send-btn:hover { background: #0f2640; }
+    .send-btn:disabled { background: #aaa; cursor: not-allowed; }
+    .success-msg { display: none; background: #e8f5e1; border: 1px solid #9fd47a; border-radius: 10px; padding: 14px; text-align: center; font-size: 13px; color: #2e6b0e; margin-top: 12px; font-weight: 500; }
+    .error-msg { display: none; background: #fde8e8; border: 1px solid #f09595; border-radius: 10px; padding: 14px; text-align: center; font-size: 13px; color: #8c1f1f; margin-top: 12px; }
+    @media (max-width: 500px) {
+      .fields-row { grid-template-columns: 1fr; }
+      .detalle-grid { grid-template-columns: 1fr; }
+      .header { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+ 
+  <div class="header">
+    <div style="display:flex; gap:10px;">
+      <div class="logo-circle">SIB<br>CBB</div>
+      <div class="logo-circle">CIBC</div>
+    </div>
+    <div class="header-text">
+      <h1>Rúbrica de Tribunal Examinador Externo</h1>
+      <p>Colegio de Ingenieros Biomédicos Cochabamba</p>
+    </div>
+  </div>
+ 
+  <div class="section-label">Datos generales</div>
+  <div class="fields-row">
+    <div class="field-group">
+      <label>Nombre del evaluador</label>
+      <input type="text" id="evaluador" placeholder="Ej. Dr. Juan Pérez" />
+    </div>
+    <div class="field-group">
+      <label>Nombre del estudiante / proyecto</label>
+      <input type="text" id="estudiante" placeholder="Ej. María López" />
+    </div>
+  </div>
+ 
+  <div class="section-label">Criterios de evaluación</div>
+  <div id="criterios"></div>
+ 
+  <div class="total-card">
+    <div>
+      <div class="total-label">Nota final ponderada</div>
+      <div style="margin-top:8px;" id="nivel-final"></div>
+    </div>
+    <div style="text-align:right;">
+      <div class="total-score" id="total-score">0</div>
+      <div class="total-max">/ 100 puntos</div>
+    </div>
+  </div>
+  <div class="formula-hint">Nota final = (Documento × 20%) + (Exposición × 20%) + (Pruebas × 40%) + (Preguntas × 20%)</div>
+ 
+  <div class="detalle-grid" id="detalle-notas"></div>
+ 
+  <div class="section-label" style="margin-top:1.5rem;">Evidencias fotográficas del proyecto</div>
+  <div class="upload-zone" onclick="document.getElementById('file-input').click()">
+    <input type="file" id="file-input" accept="image/*" multiple onchange="handleFiles(this.files)" />
+    <div style="font-size:28px; margin-bottom:8px;">📷</div>
+    <div class="upload-label"><strong>Haz clic para subir imágenes</strong></div>
+    <div class="upload-label" style="font-size:11px; margin-top:4px;">JPG, PNG, WEBP — sin límite de cantidad</div>
+  </div>
+  <div class="img-count" id="img-count"></div>
+  <div class="img-grid" id="img-grid"></div>
+ 
+  <button class="send-btn" id="send-btn" onclick="enviarResumen()">✓ Registrar evaluación</button>
+  <div class="success-msg" id="success-msg">¡Evaluación registrada correctamente! Puedes cerrar esta ventana.</div>
+  <div class="error-msg" id="error-msg">Hubo un problema al enviar. Verifica tu conexión e intenta nuevamente.</div>
+ 
+</div>
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCIjk2K6igEpt-8DYVHXX0-FiA40mGS3ES3ytg1Ipm8SqH3ySOduTS5TX1ss-VrE24/exec";
+ 
+const criterios = [
+  { id: "documento",  nombre: "Documento",                 peso: 0.20, desc: "Claridad, coherencia y rigor técnico en la redacción del proyecto de investigación." },
+  { id: "exposicion", nombre: "Exposición",                peso: 0.20, desc: "Claridad, dominio técnico y manejo del tiempo durante la presentación." },
+  { id: "pruebas",    nombre: "Pruebas de Funcionamiento", peso: 0.40, desc: "Demostración completa, ordenada y dinámica del funcionamiento del proyecto." },
+  { id: "preguntas",  nombre: "Preguntas",                 peso: 0.20, desc: "Respuestas claras, coherentes y técnicas ante las preguntas del tribunal." },
+];
+ 
+const scores = {};
+criterios.forEach(c => scores[c.id] = 0);
+let images = [];
+ 
+function getNivel(pct) {
+  if (pct >= 90) return { label: "Excelente",     cls: "nivel-exc" };
+  if (pct >= 70) return { label: "Sobresaliente", cls: "nivel-sob" };
+  if (pct >= 51) return { label: "Bueno",         cls: "nivel-bue" };
+  return           { label: "Insuficiente",  cls: "nivel-ins" };
+}
+ 
+function calcTotal() {
+  let t = 0;
+  criterios.forEach(c => { t += scores[c.id] * c.peso; });
+  return Math.round(t);
+}
+ 
+function updateTotal() {
+  const t = calcTotal();
+  document.getElementById("total-score").textContent = t;
+  const n = getNivel(t);
+  document.getElementById("nivel-final").innerHTML =
+    `<span class="nivel-badge ${n.cls}" style="font-size:13px; padding:4px 12px;">${n.label}</span>`;
+  let det = "";
+  criterios.forEach(c => {
+    const pond = (scores[c.id] * c.peso).toFixed(1);
+    det += `<div class="nota-item"><span>${c.nombre} (${c.peso*100}%)</span><span>${scores[c.id]}/100 → ${pond} pts</span></div>`;
+  });
+  document.getElementById("detalle-notas").innerHTML = det;
+}
+ 
+const cont = document.getElementById("criterios");
+criterios.forEach(c => {
+  const card = document.createElement("div");
+  card.className = "criteria-card";
+  card.innerHTML = `
+    <div class="criteria-top">
+      <div>
+        <div class="criteria-name">${c.nombre}</div>
+        <div class="criteria-desc">${c.desc}</div>
+      </div>
+      <span class="peso-badge">Peso: ${c.peso * 100}%</span>
+    </div>
+    <div class="score-row">
+      <input type="range" min="0" max="100" step="1" value="0" id="range-${c.id}"
+        oninput="updateScore('${c.id}', this.value, ${c.peso})" />
+      <div class="score-right">
+        <div class="score-display" id="disp-${c.id}">0 <span style="font-size:13px;color:#888;">/ 100</span></div>
+        <div class="score-ponderado" id="pond-${c.id}">Aporta 0 pts</div>
+        <div id="nivel-${c.id}"></div>
+      </div>
+    </div>`;
+  cont.appendChild(card);
+});
+ 
+function updateScore(id, val, peso) {
+  const v = parseInt(val);
+  scores[id] = v;
+  document.getElementById(`disp-${id}`).innerHTML = `${v} <span style="font-size:13px;color:#888;">/ 100</span>`;
+  document.getElementById(`pond-${id}`).textContent = `Aporta ${(v * peso).toFixed(1)} pts`;
+  const n = getNivel(v);
+  document.getElementById(`nivel-${id}`).innerHTML = `<span class="nivel-badge ${n.cls}">${n.label}</span>`;
+  updateTotal();
+}
+ 
+updateTotal();
+ 
+function handleFiles(files) {
+  Array.from(files).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      images.push({ id: Date.now() + Math.random(), src: e.target.result, caption: "" });
+      renderImages();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+ 
+function removeImage(id) {
+  images = images.filter(i => i.id !== id);
+  renderImages();
+}
+ 
+function renderImages() {
+  const grid = document.getElementById("img-grid");
+  const count = document.getElementById("img-count");
+  count.textContent = images.length > 0 ? `${images.length} imagen${images.length > 1 ? "es" : ""} cargada${images.length > 1 ? "s" : ""}` : "";
+  grid.innerHTML = "";
+  images.forEach(img => {
+    const div = document.createElement("div");
+    div.className = "img-thumb";
+    div.innerHTML = `
+      <img src="${img.src}" alt="Evidencia" />
+      <button class="img-remove" onclick="removeImage(${img.id})">✕</button>
+      <div class="img-caption">
+        <input type="text" placeholder="Descripción..." value="${img.caption}"
+          onchange="updateCaption(${img.id}, this.value)" />
+      </div>`;
+    grid.appendChild(div);
+  });
+}
+ 
+function updateCaption(id, val) {
+  const img = images.find(i => i.id === id);
+  if (img) img.caption = val;
+}
+ 
+async function enviarResumen() {
+  const ev  = document.getElementById("evaluador").value.trim();
+  const est = document.getElementById("estudiante").value.trim();
+ 
+  if (!ev || !est) {
+    alert("Por favor completa el nombre del evaluador y del estudiante antes de registrar.");
+    return;
+  }
+ 
+  const btn = document.getElementById("send-btn");
+  btn.disabled = true;
+  btn.textContent = "Enviando...";
+ 
+  const total = calcTotal();
+  const n = getNivel(total);
+ 
+  const payload = {
+    evaluador:     ev,
+    estudiante:    est,
+    notaFinal:     total,
+    nivel:         n.label,
+    fecha:         new Date().toLocaleString("es-BO"),
+    documento:     scores.documento,
+    exposicion:    scores.exposicion,
+    pruebas:       scores.pruebas,
+    preguntas:     scores.preguntas,
+    numImagenes:   images.length,
+    descripciones: images.map((img, i) => img.caption || `Imagen ${i+1}`).join(" | ")
+  };
+ 
+  try {
+    await fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    document.getElementById("success-msg").style.display = "block";
+    document.getElementById("error-msg").style.display = "none";
+    btn.textContent = "✓ Evaluación registrada";
+  } catch (e) {
+    document.getElementById("error-msg").style.display = "block";
+    btn.disabled = false;
+    btn.textContent = "✓ Registrar evaluación";
+  }
+ 
+  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+}
+</script>
+</body>
+</html>
