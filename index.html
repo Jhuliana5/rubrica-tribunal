@@ -10,23 +10,36 @@
     .container { max-width: 700px; margin: 0 auto; }
 
     /* HEADER */
-    .header { background: #fff; border-radius: 12px; border: 1px solid #e0ddd5; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 16px; }
+    .header { background: #fff; border-radius: 12px; border: 1px solid #e0ddd5; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
     .header img { width: 72px; height: 72px; object-fit: contain; flex-shrink: 0; }
+    .header-text { flex: 1; min-width: 160px; }
     .header-text h1 { font-size: 15px; font-weight: 600; color: #1a1a1a; margin-bottom: 3px; }
     .header-text p { font-size: 12px; color: #666; }
-    .rubrica-btn { margin-left: auto; flex-shrink: 0; padding: 7px 14px; font-size: 12px; font-weight: 600; background: #f0ede5; border: 1px solid #d0ccc0; border-radius: 8px; color: #1a3a5c; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+    .rubrica-btn { flex-shrink: 0; padding: 7px 14px; font-size: 12px; font-weight: 600; background: #f0ede5; border: 1px solid #d0ccc0; border-radius: 8px; color: #1a3a5c; cursor: pointer; display: flex; align-items: center; gap: 6px; white-space: nowrap; border: 1px solid #d0ccc0; }
     .rubrica-btn:hover { background: #e5e0d5; }
+
+    @media (max-width: 500px) {
+      .header { flex-direction: column; align-items: center; text-align: center; }
+      .header-text { text-align: center; }
+      .rubrica-btn { width: 100%; justify-content: center; }
+    }
 
     /* SECCIONES */
     .section-label { font-size: 12px; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; margin-top: 1.5rem; }
-    .fields-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 0.5rem; }
-    .fields-grid-full { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
+    .fields-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
     .field-group { display: flex; flex-direction: column; gap: 5px; }
     .field-group label { font-size: 12px; color: #555; font-weight: 500; }
+    .field-group label .req { color: #c0392b; margin-left: 2px; }
     .field-group input[type="text"],
-    .field-group select { padding: 8px 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; color: #1a1a1a; background: #fff; outline: none; width: 100%; }
+    .field-group select { padding: 8px 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; color: #1a1a1a; background: #fff; outline: none; width: 100%; transition: border-color 0.2s; }
     .field-group input[type="text"]:focus,
     .field-group select:focus { border-color: #1a3a5c; }
+    .field-group input.error,
+    .field-group select.error { border-color: #c0392b; background: #fff8f8; }
+
+    @media (max-width: 500px) {
+      .fields-grid { grid-template-columns: 1fr; }
+    }
 
     /* CRITERIOS */
     .criteria-card { background: #fff; border: 1px solid #e0ddd5; border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 12px; }
@@ -54,6 +67,7 @@
     .detalle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 1rem; }
     .nota-item { display: flex; justify-content: space-between; font-size: 12px; padding: 6px 10px; background: #fff; border: 1px solid #e0ddd5; border-radius: 8px; color: #666; }
     .nota-item span:last-child { font-weight: 600; color: #1a1a1a; }
+    @media (max-width: 500px) { .detalle-grid { grid-template-columns: 1fr; } }
 
     /* IMAGEN */
     .upload-zone { border: 1.5px dashed #bbb; border-radius: 12px; padding: 1.5rem; text-align: center; cursor: pointer; background: #fff; transition: background 0.15s; margin-top: 0.5rem; }
@@ -65,33 +79,36 @@
     .img-preview-wrap img { max-width: 100%; max-height: 220px; border-radius: 8px; border: 1px solid #e0ddd5; display: block; }
     .img-remove { position: absolute; top: 6px; right: 6px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 50%; width: 24px; height: 24px; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-    /* BOTONES */
+    /* BOTÓN PRINCIPAL */
     .send-btn { width: 100%; margin-top: 1.5rem; padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; border-radius: 10px; background: #1a3a5c; border: none; color: #fff; transition: background 0.15s; }
     .send-btn:hover { background: #0f2640; }
     .send-btn:disabled { background: #aaa; cursor: not-allowed; }
     .success-msg { display: none; background: #e8f5e1; border: 1px solid #9fd47a; border-radius: 10px; padding: 14px; text-align: center; font-size: 13px; color: #2e6b0e; margin-top: 12px; font-weight: 500; }
     .error-msg { display: none; background: #fde8e8; border: 1px solid #f09595; border-radius: 10px; padding: 14px; text-align: center; font-size: 13px; color: #8c1f1f; margin-top: 12px; }
 
-    /* MODAL CONFIRMACION */
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center; padding: 1rem; }
+    /* MODAL CONFIRMACIÓN */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 100; align-items: center; justify-content: center; padding: 1rem; }
     .modal-overlay.active { display: flex; }
-    .modal { background: #fff; border-radius: 14px; padding: 1.5rem; max-width: 480px; width: 100%; max-height: 80vh; overflow-y: auto; }
+    .modal { background: #fff; border-radius: 14px; padding: 1.5rem; max-width: 480px; width: 100%; max-height: 85vh; overflow-y: auto; }
     .modal h2 { font-size: 15px; font-weight: 600; margin-bottom: 1rem; color: #1a1a1a; }
-    .modal-row { display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0; border-bottom: 1px solid #f0ede5; color: #555; }
-    .modal-row span:last-child { font-weight: 600; color: #1a1a1a; }
-    .modal-total { display: flex; justify-content: space-between; font-size: 15px; font-weight: 700; margin-top: 12px; color: #1a3a5c; }
+    .modal-section { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin: 12px 0 6px; }
+    .modal-row { display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0; border-bottom: 1px solid #f0ede5; color: #555; gap: 12px; }
+    .modal-row span:first-child { flex-shrink: 0; }
+    .modal-row span:last-child { font-weight: 600; color: #1a1a1a; text-align: right; }
+    .modal-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 700; margin-top: 14px; padding-top: 10px; border-top: 2px solid #1a3a5c; color: #1a3a5c; }
     .modal-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 1.25rem; }
     .btn-cancel { padding: 10px; border-radius: 8px; border: 1px solid #ddd; background: #f5f5f0; font-size: 14px; cursor: pointer; color: #555; font-weight: 500; }
     .btn-confirm { padding: 10px; border-radius: 8px; border: none; background: #1a3a5c; font-size: 14px; cursor: pointer; color: #fff; font-weight: 600; }
     .btn-cancel:hover { background: #e5e0d5; }
     .btn-confirm:hover { background: #0f2640; }
 
-    @media (max-width: 500px) {
-      .fields-grid, .fields-grid-full { grid-template-columns: 1fr; }
-      .detalle-grid { grid-template-columns: 1fr; }
-      .header { flex-wrap: wrap; }
-      .rubrica-btn { margin-left: 0; margin-top: 8px; }
-    }
+    /* MODAL PDF */
+    .pdf-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 200; flex-direction: column; }
+    .pdf-overlay.active { display: flex; }
+    .pdf-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #1a3a5c; color: #fff; }
+    .pdf-header span { font-size: 14px; font-weight: 600; }
+    .pdf-close { background: transparent; border: none; color: #fff; font-size: 20px; cursor: pointer; padding: 4px 8px; }
+    .pdf-frame { flex: 1; border: none; width: 100%; }
   </style>
 </head>
 <body>
@@ -104,38 +121,37 @@
       <h1>Rúbrica de Tribunal Examinador Externo</h1>
       <p>Colegio de Ingenieros Biomédicos Cochabamba</p>
     </div>
-    <a class="rubrica-btn" href="RUBRICA DE EVALUACION PARA TRIBUNAL EXAMINADOR EXTERNO.pdf" target="_blank">
-      📄 Ver Rúbrica
-    </a>
+    <button class="rubrica-btn" onclick="abrirPDF()">📄 Ver Rúbrica</button>
   </div>
 
-  <!-- DATOS GENERALES -->
+  <!-- DATOS EVALUADOR -->
   <div class="section-label">Datos del evaluador</div>
-  <div class="fields-grid" style="margin-bottom:12px;">
+  <div class="fields-grid">
     <div class="field-group">
-      <label>Nombre del evaluador</label>
+      <label>Nombre del evaluador <span class="req">*</span></label>
       <input type="text" id="evaluador" placeholder="Ej. Dr. Juan Pérez" />
     </div>
     <div class="field-group">
-      <label>RNI</label>
+      <label>RNI <span class="req">*</span></label>
       <input type="text" id="rni" placeholder="Ej. 12345" />
     </div>
   </div>
 
+  <!-- DATOS ESTUDIANTE -->
   <div class="section-label">Datos del estudiante</div>
-  <div class="fields-grid" style="margin-bottom:12px;">
+  <div class="fields-grid">
     <div class="field-group">
-      <label>Nombre del estudiante</label>
+      <label>Nombre del estudiante <span class="req">*</span></label>
       <input type="text" id="estudiante" placeholder="Ej. María López" />
     </div>
     <div class="field-group">
-      <label>Universidad</label>
+      <label>Universidad <span class="req">*</span></label>
       <input type="text" id="universidad" placeholder="Ej. UMSS" />
     </div>
   </div>
-  <div class="fields-grid-full">
+  <div class="fields-grid">
     <div class="field-group">
-      <label>Modalidad de titulación</label>
+      <label>Modalidad de titulación <span class="req">*</span></label>
       <select id="modalidad">
         <option value="" disabled selected>Selecciona una opción</option>
         <option value="Proyecto de Grado">Proyecto de Grado</option>
@@ -163,7 +179,7 @@
   <div class="formula-hint">Nota final = (Documento × 20%) + (Exposición × 20%) + (Pruebas × 40%) + (Preguntas × 20%)</div>
   <div class="detalle-grid" id="detalle-notas"></div>
 
-  <!-- IMAGEN EVIDENCIA -->
+  <!-- IMAGEN -->
   <div class="section-label" style="margin-top:1.5rem;">Evidencia fotográfica del proyecto</div>
   <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
     <input type="file" id="file-input" accept="image/*" onchange="handleFile(this.files[0])" />
@@ -179,20 +195,30 @@
 
 </div>
 
-<!-- MODAL CONFIRMACION -->
-<div class="modal-overlay" id="modal-overlay">
+<!-- MODAL CONFIRMACIÓN -->
+<div class="modal-overlay" id="modal-confirmacion">
   <div class="modal">
     <h2>✅ Confirmar evaluación</h2>
     <div id="modal-contenido"></div>
     <div class="modal-btns">
-      <button class="btn-cancel" onclick="cerrarModal()">← Volver y editar</button>
+      <button class="btn-cancel" onclick="cerrarModal('modal-confirmacion')">← Volver y editar</button>
       <button class="btn-confirm" onclick="enviarResumen()">Confirmar y enviar</button>
     </div>
   </div>
 </div>
 
+<!-- MODAL PDF -->
+<div class="pdf-overlay" id="modal-pdf">
+  <div class="pdf-header">
+    <span>📄 Rúbrica de Tribunal Examinador Externo</span>
+    <button class="pdf-close" onclick="cerrarModal('modal-pdf')">✕</button>
+  </div>
+  <iframe class="pdf-frame" id="pdf-frame" src=""></iframe>
+</div>
+
 <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCIjk2K6igEpt-8DYVHXX0-FiA40mGS3ES3ytg1Ipm8SqH3ySOduTS5TX1ss-VrE24/exec";
+const PDF_URL = "https://docs.google.com/viewer?url=" + encodeURIComponent(window.location.origin + window.location.pathname.replace("index.html","") + "RUBRICA DE EVALUACION PARA TRIBUNAL EXAMINADOR EXTERNO.pdf") + "&embedded=true";
 
 const criterios = [
   { id: "documento",  nombre: "Documento",                 peso: 0.20, desc: "Claridad, coherencia y rigor técnico en la redacción del proyecto de investigación." },
@@ -224,7 +250,7 @@ function updateTotal() {
   document.getElementById("total-score").textContent = t;
   const n = getNivel(t);
   document.getElementById("nivel-final").innerHTML =
-    `<span class="nivel-badge ${n.cls}" style="font-size:13px; padding:4px 12px;">${n.label}</span>`;
+    `<span class="nivel-badge ${n.cls}" style="font-size:13px;padding:4px 12px;">${n.label}</span>`;
   let det = "";
   criterios.forEach(c => {
     const pond = (scores[c.id] * c.peso).toFixed(1);
@@ -270,7 +296,7 @@ function updateScore(id, val, peso) {
 
 updateTotal();
 
-// Manejo de imagen
+// Imagen
 function handleFile(file) {
   if (!file) return;
   imagenNombre = file.name;
@@ -295,29 +321,60 @@ function quitarImagen() {
   document.getElementById("upload-zone").style.display = "block";
 }
 
-// Modal de confirmación
+// PDF Modal
+function abrirPDF() {
+  document.getElementById("pdf-frame").src = PDF_URL;
+  document.getElementById("modal-pdf").classList.add("active");
+}
+
+function cerrarModal(id) {
+  document.getElementById(id).classList.remove("active");
+  if (id === "modal-pdf") document.getElementById("pdf-frame").src = "";
+}
+
+// Validación y confirmación
 function mostrarConfirmacion() {
+  const campos = [
+    { id: "evaluador",  label: "Nombre del evaluador" },
+    { id: "rni",        label: "RNI" },
+    { id: "estudiante", label: "Nombre del estudiante" },
+    { id: "universidad",label: "Universidad" },
+    { id: "modalidad",  label: "Modalidad de titulación" },
+  ];
+
+  let hayError = false;
+  campos.forEach(c => {
+    const el = document.getElementById(c.id);
+    if (!el.value.trim()) {
+      el.classList.add("error");
+      hayError = true;
+    } else {
+      el.classList.remove("error");
+    }
+  });
+
+  if (hayError) {
+    alert("Por favor completa todos los campos marcados en rojo antes de continuar.");
+    return;
+  }
+
   const ev  = document.getElementById("evaluador").value.trim();
   const rni = document.getElementById("rni").value.trim();
   const est = document.getElementById("estudiante").value.trim();
   const uni = document.getElementById("universidad").value.trim();
   const mod = document.getElementById("modalidad").value;
-
-  if (!ev || !est || !uni || !mod) {
-    alert("Por favor completa todos los campos obligatorios:\n- Nombre del evaluador\n- Nombre del estudiante\n- Universidad\n- Modalidad de titulación");
-    return;
-  }
-
   const total = calcTotal();
   const n = getNivel(total);
 
   let html = `
-    <div class="modal-row"><span>Evaluador</span><span>${ev}</span></div>
-    <div class="modal-row"><span>RNI</span><span>${rni || "—"}</span></div>
-    <div class="modal-row"><span>Estudiante</span><span>${est}</span></div>
+    <div class="modal-section">Evaluador</div>
+    <div class="modal-row"><span>Nombre</span><span>${ev}</span></div>
+    <div class="modal-row"><span>RNI</span><span>${rni}</span></div>
+    <div class="modal-section">Estudiante</div>
+    <div class="modal-row"><span>Nombre</span><span>${est}</span></div>
     <div class="modal-row"><span>Universidad</span><span>${uni}</span></div>
     <div class="modal-row"><span>Modalidad</span><span>${mod}</span></div>
-    <div style="margin-top:12px; margin-bottom:4px; font-size:12px; font-weight:600; color:#555; text-transform:uppercase; letter-spacing:0.05em;">Calificaciones</div>`;
+    <div class="modal-section">Calificaciones</div>`;
 
   criterios.forEach(c => {
     const pond = (scores[c.id] * c.peso).toFixed(1);
@@ -326,44 +383,35 @@ function mostrarConfirmacion() {
 
   html += `
     <div class="modal-total"><span>Nota final</span><span>${total}/100 — ${n.label}</span></div>
-    <div class="modal-row" style="margin-top:8px;"><span>Imagen adjunta</span><span>${imagenBase64 ? "Sí (" + imagenNombre + ")" : "No"}</span></div>`;
+    <div class="modal-row" style="margin-top:10px;"><span>Imagen adjunta</span><span>${imagenBase64 ? "✓ " + imagenNombre : "Sin imagen"}</span></div>`;
 
   document.getElementById("modal-contenido").innerHTML = html;
-  document.getElementById("modal-overlay").classList.add("active");
-}
-
-function cerrarModal() {
-  document.getElementById("modal-overlay").classList.remove("active");
+  document.getElementById("modal-confirmacion").classList.add("active");
 }
 
 async function enviarResumen() {
-  cerrarModal();
+  cerrarModal("modal-confirmacion");
   const btn = document.getElementById("send-btn");
   btn.disabled = true;
   btn.textContent = "Enviando...";
 
-  const ev  = document.getElementById("evaluador").value.trim();
-  const rni = document.getElementById("rni").value.trim();
-  const est = document.getElementById("estudiante").value.trim();
-  const uni = document.getElementById("universidad").value.trim();
-  const mod = document.getElementById("modalidad").value;
   const total = calcTotal();
   const n = getNivel(total);
 
   const payload = {
-    fecha:      new Date().toLocaleString("es-BO"),
-    evaluador:  ev,
-    rni:        rni,
-    estudiante: est,
-    universidad: uni,
-    modalidad:  mod,
-    documento:  scores.documento,
-    exposicion: scores.exposicion,
-    pruebas:    scores.pruebas,
-    preguntas:  scores.preguntas,
-    notaFinal:  total,
-    nivel:      n.label,
-    imagen:     imagenBase64 || "",
+    fecha:        new Date().toLocaleString("es-BO"),
+    evaluador:    document.getElementById("evaluador").value.trim(),
+    rni:          document.getElementById("rni").value.trim(),
+    estudiante:   document.getElementById("estudiante").value.trim(),
+    universidad:  document.getElementById("universidad").value.trim(),
+    modalidad:    document.getElementById("modalidad").value,
+    documento:    scores.documento,
+    exposicion:   scores.exposicion,
+    pruebas:      scores.pruebas,
+    preguntas:    scores.preguntas,
+    notaFinal:    total,
+    nivel:        n.label,
+    imagen:       imagenBase64 || "",
     imagenNombre: imagenNombre || ""
   };
 
