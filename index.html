@@ -8,16 +8,27 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f5f0; color: #1a1a1a; min-height: 100vh; padding: 2rem 1rem; }
     .container { max-width: 700px; margin: 0 auto; }
-    .header { background: #fff; border-radius: 12px; border: 1px solid #e0ddd5; padding: 1.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 16px; }
-    .logo-circle { width: 48px; height: 48px; border-radius: 50%; background: #1a3a5c; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700; text-align: center; line-height: 1.2; flex-shrink: 0; }
+
+    /* HEADER */
+    .header { background: #fff; border-radius: 12px; border: 1px solid #e0ddd5; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 16px; }
+    .header img { width: 72px; height: 72px; object-fit: contain; flex-shrink: 0; }
     .header-text h1 { font-size: 15px; font-weight: 600; color: #1a1a1a; margin-bottom: 3px; }
     .header-text p { font-size: 12px; color: #666; }
+    .rubrica-btn { margin-left: auto; flex-shrink: 0; padding: 7px 14px; font-size: 12px; font-weight: 600; background: #f0ede5; border: 1px solid #d0ccc0; border-radius: 8px; color: #1a3a5c; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+    .rubrica-btn:hover { background: #e5e0d5; }
+
+    /* SECCIONES */
     .section-label { font-size: 12px; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; margin-top: 1.5rem; }
-    .fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
+    .fields-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 0.5rem; }
+    .fields-grid-full { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
     .field-group { display: flex; flex-direction: column; gap: 5px; }
     .field-group label { font-size: 12px; color: #555; font-weight: 500; }
-    .field-group input[type="text"] { padding: 8px 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; color: #1a1a1a; background: #fff; outline: none; width: 100%; }
-    .field-group input[type="text"]:focus { border-color: #1a3a5c; }
+    .field-group input[type="text"],
+    .field-group select { padding: 8px 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; color: #1a1a1a; background: #fff; outline: none; width: 100%; }
+    .field-group input[type="text"]:focus,
+    .field-group select:focus { border-color: #1a3a5c; }
+
+    /* CRITERIOS */
     .criteria-card { background: #fff; border: 1px solid #e0ddd5; border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 12px; }
     .criteria-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
     .criteria-name { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 3px; }
@@ -33,6 +44,8 @@
     .nivel-sob { background: #e3eefa; color: #1a4d8c; }
     .nivel-bue { background: #fef3e0; color: #7a4e00; }
     .nivel-ins { background: #fde8e8; color: #8c1f1f; }
+
+    /* TOTAL */
     .total-card { background: #1a3a5c; border-radius: 12px; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; }
     .total-label { font-size: 14px; color: rgba(255,255,255,0.75); }
     .total-score { font-size: 42px; font-weight: 700; color: #fff; }
@@ -41,60 +54,102 @@
     .detalle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 1rem; }
     .nota-item { display: flex; justify-content: space-between; font-size: 12px; padding: 6px 10px; background: #fff; border: 1px solid #e0ddd5; border-radius: 8px; color: #666; }
     .nota-item span:last-child { font-weight: 600; color: #1a1a1a; }
-    .upload-zone { border: 1.5px dashed #bbb; border-radius: 12px; padding: 2rem; text-align: center; cursor: pointer; background: #fff; transition: background 0.15s; margin-top: 0.5rem; }
+
+    /* IMAGEN */
+    .upload-zone { border: 1.5px dashed #bbb; border-radius: 12px; padding: 1.5rem; text-align: center; cursor: pointer; background: #fff; transition: background 0.15s; margin-top: 0.5rem; }
     .upload-zone:hover { background: #f5f5f0; }
     .upload-zone input { display: none; }
     .upload-label { font-size: 13px; color: #555; margin-top: 6px; }
     .upload-label strong { color: #1a3a5c; }
-    .img-count { font-size: 11px; color: #888; margin-top: 8px; }
-    .img-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 12px; }
-    .img-thumb { position: relative; border-radius: 8px; overflow: hidden; border: 1px solid #e0ddd5; aspect-ratio: 1; }
-    .img-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .img-remove { position: absolute; top: 5px; right: 5px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 50%; width: 22px; height: 22px; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    .img-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.5); padding: 4px 7px; }
-    .img-caption input { background: transparent; border: none; color: #fff; font-size: 11px; width: 100%; outline: none; }
-    .img-caption input::placeholder { color: rgba(255,255,255,0.6); }
+    .img-preview-wrap { margin-top: 12px; position: relative; display: inline-block; }
+    .img-preview-wrap img { max-width: 100%; max-height: 220px; border-radius: 8px; border: 1px solid #e0ddd5; display: block; }
+    .img-remove { position: absolute; top: 6px; right: 6px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 50%; width: 24px; height: 24px; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+    /* BOTONES */
     .send-btn { width: 100%; margin-top: 1.5rem; padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; border-radius: 10px; background: #1a3a5c; border: none; color: #fff; transition: background 0.15s; }
     .send-btn:hover { background: #0f2640; }
     .send-btn:disabled { background: #aaa; cursor: not-allowed; }
     .success-msg { display: none; background: #e8f5e1; border: 1px solid #9fd47a; border-radius: 10px; padding: 14px; text-align: center; font-size: 13px; color: #2e6b0e; margin-top: 12px; font-weight: 500; }
     .error-msg { display: none; background: #fde8e8; border: 1px solid #f09595; border-radius: 10px; padding: 14px; text-align: center; font-size: 13px; color: #8c1f1f; margin-top: 12px; }
+
+    /* MODAL CONFIRMACION */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center; padding: 1rem; }
+    .modal-overlay.active { display: flex; }
+    .modal { background: #fff; border-radius: 14px; padding: 1.5rem; max-width: 480px; width: 100%; max-height: 80vh; overflow-y: auto; }
+    .modal h2 { font-size: 15px; font-weight: 600; margin-bottom: 1rem; color: #1a1a1a; }
+    .modal-row { display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0; border-bottom: 1px solid #f0ede5; color: #555; }
+    .modal-row span:last-child { font-weight: 600; color: #1a1a1a; }
+    .modal-total { display: flex; justify-content: space-between; font-size: 15px; font-weight: 700; margin-top: 12px; color: #1a3a5c; }
+    .modal-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 1.25rem; }
+    .btn-cancel { padding: 10px; border-radius: 8px; border: 1px solid #ddd; background: #f5f5f0; font-size: 14px; cursor: pointer; color: #555; font-weight: 500; }
+    .btn-confirm { padding: 10px; border-radius: 8px; border: none; background: #1a3a5c; font-size: 14px; cursor: pointer; color: #fff; font-weight: 600; }
+    .btn-cancel:hover { background: #e5e0d5; }
+    .btn-confirm:hover { background: #0f2640; }
+
     @media (max-width: 500px) {
-      .fields-row { grid-template-columns: 1fr; }
+      .fields-grid, .fields-grid-full { grid-template-columns: 1fr; }
       .detalle-grid { grid-template-columns: 1fr; }
-      .header { flex-direction: column; text-align: center; }
+      .header { flex-wrap: wrap; }
+      .rubrica-btn { margin-left: 0; margin-top: 8px; }
     }
   </style>
 </head>
 <body>
 <div class="container">
- 
+
+  <!-- HEADER -->
   <div class="header">
-    <div style="display:flex; gap:10px;">
-      <div class="logo-circle">SIB<br>CBB</div>
-      <div class="logo-circle">CIBC</div>
-    </div>
+    <img src="LOGO_FINAL_C_JPEG.jpg" alt="Logo CIBC Cochabamba" />
     <div class="header-text">
       <h1>Rúbrica de Tribunal Examinador Externo</h1>
       <p>Colegio de Ingenieros Biomédicos Cochabamba</p>
     </div>
+    <a class="rubrica-btn" href="RUBRICA_DE_EVALUACION_PARA_TRIBUNAL_EXAMINADOR_EXTERNO.pdf" target="_blank">
+      📄 Ver Rúbrica
+    </a>
   </div>
- 
-  <div class="section-label">Datos generales</div>
-  <div class="fields-row">
+
+  <!-- DATOS GENERALES -->
+  <div class="section-label">Datos del evaluador</div>
+  <div class="fields-grid" style="margin-bottom:12px;">
     <div class="field-group">
       <label>Nombre del evaluador</label>
       <input type="text" id="evaluador" placeholder="Ej. Dr. Juan Pérez" />
     </div>
     <div class="field-group">
-      <label>Nombre del estudiante / proyecto</label>
-      <input type="text" id="estudiante" placeholder="Ej. María López" />
+      <label>RNI</label>
+      <input type="text" id="rni" placeholder="Ej. 12345" />
     </div>
   </div>
- 
+
+  <div class="section-label">Datos del estudiante</div>
+  <div class="fields-grid" style="margin-bottom:12px;">
+    <div class="field-group">
+      <label>Nombre del estudiante</label>
+      <input type="text" id="estudiante" placeholder="Ej. María López" />
+    </div>
+    <div class="field-group">
+      <label>Universidad</label>
+      <input type="text" id="universidad" placeholder="Ej. UMSS" />
+    </div>
+  </div>
+  <div class="fields-grid-full">
+    <div class="field-group">
+      <label>Modalidad de titulación</label>
+      <select id="modalidad">
+        <option value="" disabled selected>Selecciona una opción</option>
+        <option value="Proyecto de Grado">Proyecto de Grado</option>
+        <option value="Trabajo Dirigido">Trabajo Dirigido</option>
+        <option value="Examen de Grado">Examen de Grado</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- CRITERIOS -->
   <div class="section-label">Criterios de evaluación</div>
   <div id="criterios"></div>
- 
+
+  <!-- TOTAL -->
   <div class="total-card">
     <div>
       <div class="total-label">Nota final ponderada</div>
@@ -106,51 +161,64 @@
     </div>
   </div>
   <div class="formula-hint">Nota final = (Documento × 20%) + (Exposición × 20%) + (Pruebas × 40%) + (Preguntas × 20%)</div>
- 
   <div class="detalle-grid" id="detalle-notas"></div>
- 
-  <div class="section-label" style="margin-top:1.5rem;">Evidencias fotográficas del proyecto</div>
-  <div class="upload-zone" onclick="document.getElementById('file-input').click()">
-    <input type="file" id="file-input" accept="image/*" multiple onchange="handleFiles(this.files)" />
+
+  <!-- IMAGEN EVIDENCIA -->
+  <div class="section-label" style="margin-top:1.5rem;">Evidencia fotográfica del proyecto</div>
+  <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
+    <input type="file" id="file-input" accept="image/*" onchange="handleFile(this.files[0])" />
     <div style="font-size:28px; margin-bottom:8px;">📷</div>
-    <div class="upload-label"><strong>Haz clic para subir imágenes</strong></div>
-    <div class="upload-label" style="font-size:11px; margin-top:4px;">JPG, PNG, WEBP — sin límite de cantidad</div>
+    <div class="upload-label"><strong>Haz clic para subir una imagen</strong></div>
+    <div class="upload-label" style="font-size:11px; margin-top:4px;">JPG, PNG o WEBP — máximo 1 imagen</div>
   </div>
-  <div class="img-count" id="img-count"></div>
-  <div class="img-grid" id="img-grid"></div>
- 
-  <button class="send-btn" id="send-btn" onclick="enviarResumen()">✓ Registrar evaluación</button>
+  <div id="img-preview" style="text-align:center;"></div>
+
+  <button class="send-btn" id="send-btn" onclick="mostrarConfirmacion()">Revisar y registrar evaluación →</button>
   <div class="success-msg" id="success-msg">¡Evaluación registrada correctamente! Puedes cerrar esta ventana.</div>
   <div class="error-msg" id="error-msg">Hubo un problema al enviar. Verifica tu conexión e intenta nuevamente.</div>
- 
+
 </div>
+
+<!-- MODAL CONFIRMACION -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <h2>✅ Confirmar evaluación</h2>
+    <div id="modal-contenido"></div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="cerrarModal()">← Volver y editar</button>
+      <button class="btn-confirm" onclick="enviarResumen()">Confirmar y enviar</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCIjk2K6igEpt-8DYVHXX0-FiA40mGS3ES3ytg1Ipm8SqH3ySOduTS5TX1ss-VrE24/exec";
- 
+
 const criterios = [
   { id: "documento",  nombre: "Documento",                 peso: 0.20, desc: "Claridad, coherencia y rigor técnico en la redacción del proyecto de investigación." },
   { id: "exposicion", nombre: "Exposición",                peso: 0.20, desc: "Claridad, dominio técnico y manejo del tiempo durante la presentación." },
   { id: "pruebas",    nombre: "Pruebas de Funcionamiento", peso: 0.40, desc: "Demostración completa, ordenada y dinámica del funcionamiento del proyecto." },
   { id: "preguntas",  nombre: "Preguntas",                 peso: 0.20, desc: "Respuestas claras, coherentes y técnicas ante las preguntas del tribunal." },
 ];
- 
+
 const scores = {};
 criterios.forEach(c => scores[c.id] = 0);
-let images = [];
- 
+let imagenBase64 = null;
+let imagenNombre = "";
+
 function getNivel(pct) {
   if (pct >= 90) return { label: "Excelente",     cls: "nivel-exc" };
   if (pct >= 70) return { label: "Sobresaliente", cls: "nivel-sob" };
   if (pct >= 51) return { label: "Bueno",         cls: "nivel-bue" };
   return           { label: "Insuficiente",  cls: "nivel-ins" };
 }
- 
+
 function calcTotal() {
   let t = 0;
   criterios.forEach(c => { t += scores[c.id] * c.peso; });
   return Math.round(t);
 }
- 
+
 function updateTotal() {
   const t = calcTotal();
   document.getElementById("total-score").textContent = t;
@@ -164,7 +232,8 @@ function updateTotal() {
   });
   document.getElementById("detalle-notas").innerHTML = det;
 }
- 
+
+// Construir criterios
 const cont = document.getElementById("criterios");
 criterios.forEach(c => {
   const card = document.createElement("div");
@@ -188,7 +257,7 @@ criterios.forEach(c => {
     </div>`;
   cont.appendChild(card);
 });
- 
+
 function updateScore(id, val, peso) {
   const v = parseInt(val);
   scores[id] = v;
@@ -198,79 +267,106 @@ function updateScore(id, val, peso) {
   document.getElementById(`nivel-${id}`).innerHTML = `<span class="nivel-badge ${n.cls}">${n.label}</span>`;
   updateTotal();
 }
- 
+
 updateTotal();
- 
-function handleFiles(files) {
-  Array.from(files).forEach(file => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      images.push({ id: Date.now() + Math.random(), src: e.target.result, caption: "" });
-      renderImages();
-    };
-    reader.readAsDataURL(file);
-  });
-}
- 
-function removeImage(id) {
-  images = images.filter(i => i.id !== id);
-  renderImages();
-}
- 
-function renderImages() {
-  const grid = document.getElementById("img-grid");
-  const count = document.getElementById("img-count");
-  count.textContent = images.length > 0 ? `${images.length} imagen${images.length > 1 ? "es" : ""} cargada${images.length > 1 ? "s" : ""}` : "";
-  grid.innerHTML = "";
-  images.forEach(img => {
-    const div = document.createElement("div");
-    div.className = "img-thumb";
-    div.innerHTML = `
-      <img src="${img.src}" alt="Evidencia" />
-      <button class="img-remove" onclick="removeImage(${img.id})">✕</button>
-      <div class="img-caption">
-        <input type="text" placeholder="Descripción..." value="${img.caption}"
-          onchange="updateCaption(${img.id}, this.value)" />
+
+// Manejo de imagen
+function handleFile(file) {
+  if (!file) return;
+  imagenNombre = file.name;
+  const reader = new FileReader();
+  reader.onload = e => {
+    imagenBase64 = e.target.result;
+    document.getElementById("img-preview").innerHTML = `
+      <div class="img-preview-wrap">
+        <img src="${imagenBase64}" alt="Evidencia" />
+        <button class="img-remove" onclick="quitarImagen()">✕</button>
       </div>`;
-    grid.appendChild(div);
-  });
+    document.getElementById("upload-zone").style.display = "none";
+  };
+  reader.readAsDataURL(file);
 }
- 
-function updateCaption(id, val) {
-  const img = images.find(i => i.id === id);
-  if (img) img.caption = val;
+
+function quitarImagen() {
+  imagenBase64 = null;
+  imagenNombre = "";
+  document.getElementById("img-preview").innerHTML = "";
+  document.getElementById("file-input").value = "";
+  document.getElementById("upload-zone").style.display = "block";
 }
- 
-async function enviarResumen() {
+
+// Modal de confirmación
+function mostrarConfirmacion() {
   const ev  = document.getElementById("evaluador").value.trim();
+  const rni = document.getElementById("rni").value.trim();
   const est = document.getElementById("estudiante").value.trim();
- 
-  if (!ev || !est) {
-    alert("Por favor completa el nombre del evaluador y del estudiante antes de registrar.");
+  const uni = document.getElementById("universidad").value.trim();
+  const mod = document.getElementById("modalidad").value;
+
+  if (!ev || !est || !uni || !mod) {
+    alert("Por favor completa todos los campos obligatorios:\n- Nombre del evaluador\n- Nombre del estudiante\n- Universidad\n- Modalidad de titulación");
     return;
   }
- 
+
+  const total = calcTotal();
+  const n = getNivel(total);
+
+  let html = `
+    <div class="modal-row"><span>Evaluador</span><span>${ev}</span></div>
+    <div class="modal-row"><span>RNI</span><span>${rni || "—"}</span></div>
+    <div class="modal-row"><span>Estudiante</span><span>${est}</span></div>
+    <div class="modal-row"><span>Universidad</span><span>${uni}</span></div>
+    <div class="modal-row"><span>Modalidad</span><span>${mod}</span></div>
+    <div style="margin-top:12px; margin-bottom:4px; font-size:12px; font-weight:600; color:#555; text-transform:uppercase; letter-spacing:0.05em;">Calificaciones</div>`;
+
+  criterios.forEach(c => {
+    const pond = (scores[c.id] * c.peso).toFixed(1);
+    html += `<div class="modal-row"><span>${c.nombre} (${c.peso*100}%)</span><span>${scores[c.id]}/100 → ${pond} pts</span></div>`;
+  });
+
+  html += `
+    <div class="modal-total"><span>Nota final</span><span>${total}/100 — ${n.label}</span></div>
+    <div class="modal-row" style="margin-top:8px;"><span>Imagen adjunta</span><span>${imagenBase64 ? "Sí (" + imagenNombre + ")" : "No"}</span></div>`;
+
+  document.getElementById("modal-contenido").innerHTML = html;
+  document.getElementById("modal-overlay").classList.add("active");
+}
+
+function cerrarModal() {
+  document.getElementById("modal-overlay").classList.remove("active");
+}
+
+async function enviarResumen() {
+  cerrarModal();
   const btn = document.getElementById("send-btn");
   btn.disabled = true;
   btn.textContent = "Enviando...";
- 
+
+  const ev  = document.getElementById("evaluador").value.trim();
+  const rni = document.getElementById("rni").value.trim();
+  const est = document.getElementById("estudiante").value.trim();
+  const uni = document.getElementById("universidad").value.trim();
+  const mod = document.getElementById("modalidad").value;
   const total = calcTotal();
   const n = getNivel(total);
- 
+
   const payload = {
-    evaluador:     ev,
-    estudiante:    est,
-    notaFinal:     total,
-    nivel:         n.label,
-    fecha:         new Date().toLocaleString("es-BO"),
-    documento:     scores.documento,
-    exposicion:    scores.exposicion,
-    pruebas:       scores.pruebas,
-    preguntas:     scores.preguntas,
-    numImagenes:   images.length,
-    descripciones: images.map((img, i) => img.caption || `Imagen ${i+1}`).join(" | ")
+    fecha:      new Date().toLocaleString("es-BO"),
+    evaluador:  ev,
+    rni:        rni,
+    estudiante: est,
+    universidad: uni,
+    modalidad:  mod,
+    documento:  scores.documento,
+    exposicion: scores.exposicion,
+    pruebas:    scores.pruebas,
+    preguntas:  scores.preguntas,
+    notaFinal:  total,
+    nivel:      n.label,
+    imagen:     imagenBase64 || "",
+    imagenNombre: imagenNombre || ""
   };
- 
+
   try {
     await fetch(SCRIPT_URL, {
       method: "POST",
@@ -284,9 +380,9 @@ async function enviarResumen() {
   } catch (e) {
     document.getElementById("error-msg").style.display = "block";
     btn.disabled = false;
-    btn.textContent = "✓ Registrar evaluación";
+    btn.textContent = "Revisar y registrar evaluación →";
   }
- 
+
   window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
 }
 </script>
